@@ -12,7 +12,10 @@ class Ranking{
 	public:	
 		double calcularIDF(int n,int nt){
 			float x,y=n,z=nt;
-			x = (y/z);
+			if (z==0)
+				return (0);
+			else 
+				x = (y/z);
 			return (log(x));
 		}
 		vector <string> readInput(){ //Le a consulta do teclado e retorna como um vector de strings
@@ -25,6 +28,7 @@ class Ranking{
 				{
 					palavras.push_back(aux);
 					aux = "";
+					this->numPalavras_++;
 				}
 				else
 					aux = aux+consulta[i];	
@@ -32,20 +36,24 @@ class Ranking{
 			return palavras;
 		}
 		map<string,double> calculateIDF(map<int,map<string,int>> itf,int tamanho){ //calcula o IDF
-			map<string,double> idf; //map que ser· retornado no final da funÁ„o
+			map<string,double> idf; //map que ser√° retornado no final da fun√ß√£o
 			map<string,int> numArquivos; //quantidade de arquivos que cada palavra aparece
 			for (int i=0; i < tamanho; i ++)
 				for (auto it=itf[i].begin();it!=itf[i].end() ;it++) //Verificando em quantos documentos cada palavra aparece
 					numArquivos[it->first]++;
-			for (auto it=numArquivos.begin();it!=numArquivos.end(); it++) //preenchendo map idf
+			for (auto it=numArquivos.begin();it!=numArquivos.end(); it++){//preenchendo map idf
+				this->tamanhoIDF_++;
 				idf[it->first] = calcularIDF(tamanho,it->second);
+			} 
 			return idf;
 		}
 		map<int,map<string,double>> calculateW(map<string,double> idf,map<int,map<string,int>> itf,int tamanho){ //Calcula o valor de W
 			map<int,map<string,double>> W;
-			for (int i=0; i < tamanho; i ++) // Preenchendo map "W", que È a multiplicaÁ„o de ITF e TF
+			for (int i=0; i < tamanho; i ++){ // Preenchendo map "W", que √© a multiplica√ß√£o de ITF e TF
 				for (auto it=itf[i].begin();it!=itf[i].end(); it++)
 					W[i][it->first] = idf[it->first]*itf[i][it->first];
+				this->tamW_++;
+			}
 			return W;
 		}
 		map <int,double> calculateCosine(vector<string> frase,map<string,double> idf,map<int,map<string,double>> W,int tamanho){ 
@@ -60,7 +68,7 @@ class Ranking{
 						numerador += (W[i][frase[j]])*(repeteFrase*idf[frase[j]]); 
 					}
 				denominador = (sqrt(aux2))*(sqrt(aux3));
-				if ((numerador == 0) && (denominador == 0)) //Elimina casos de indeterminaÁ„o
+				if ((numerador == 0) && (denominador == 0)) //Elimina casos de indetermina√ß√£o
 					cos[i] = 0;
 				else if (denominador == 0)
 					cos[i] = 0;
@@ -71,11 +79,13 @@ class Ranking{
 				aux2 = 0;
 				aux3 = 0;
 			}
+			this->cosseno_ = cos;
 			return cos;
 		}
-		void printRank(map<int,double> cos,int tamanho){ // Mostra para o usu·rio qual o documento mais proximo da consulta
-			vector<double> posDoc;// vetor criado para ajudar na ordenaÁ„o
+		void printRank(map<int,double> cos,int tamanho){ // Mostra para o usu√°rio qual o documento mais proximo da consulta
+			vector<double> posDoc;// vetor criado para ajudar na ordena√ß√£o
 			int posicao = 1,total=0,i,j;
+			this->t_ = tamanho;
 			for (i=0;i<tamanho;i++)
 				posDoc.push_back(cos[i]);
 			sort(posDoc.begin(),posDoc.end()); //ordena o vetor
@@ -103,6 +113,10 @@ class Ranking{
 				if (total==tamanho) 
 					break;
 			}
+			this->cosseno_ = cos;
 		}
 	private:
+		int t_,tamanhoIDF_,numPalavras_,tamW_;
+		map<int,double> cosseno_;
+		friend class Teste;
 };
