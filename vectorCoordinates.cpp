@@ -22,6 +22,11 @@ class dataStructuration{
 			
 		}
 		
+		/*A função fillMap recebe como parametros o nome do arquivo, o vector<string> contendo todas
+		as palavras do arquivo, e um map<string,int> por referencia cuja chave é uma palavra do arquivo e o valor 
+		associado a chave é o numero de documentos no qual ela aparece
+		*/
+		
 		void fillMap(string s, vector<string> words, map<string,int> &inFileCount){
 			
 			int i,j,aux;
@@ -35,7 +40,7 @@ class dataStructuration{
 			sort(words.begin(), words.end());
 			words.erase(unique(words.begin(),words.end()),words.end());
 		
-			
+		/*	
 			for(i = 0; i < words.size(); i++){
 				
 				cout << "Existem: " << wordCount[words[i]] << " instancias da palavra \"" << words[i] << "\" no arquivo " << dataStructure[wordCount] << "\n";
@@ -47,13 +52,12 @@ class dataStructuration{
 				cout << "Existem: " << inFileCount[words[i]] << " instancias da palavra \"" << words[i] << "\" no arquivos \n";
 					
 			}
+		*/
 		}
-			
-		map<string,int> getTFfMap(){
-			
-			return wordCount;
-			
-		}
+		
+		/* A função term frequency percorre o vetor de palavras de cada arquivo, o qual a função recebe como parametro,
+		e conta quantas repetições de cada palavra existem no vector, após isso a palavra comparada é deletada a fim de 
+		evitar contagens repetidas*/
 		
 		void termFrequency(vector<string> words){
 			
@@ -70,23 +74,16 @@ class dataStructuration{
 					}		
 				}
 			} 
-		}
-		
-		void invertedDocumentFrequency(vector<string> words,map<string,int> &inFileCount){
-			
-			int i;
-						
-			sort(words.begin(), words.end());
-			words.erase(unique(words.begin(),words.end()),words.end());
-			
-			for(i = 0; i <  words.size(); i++){
+	}
 				
-				inFileCount[words[i]]++;	
-			}				
-		}
-		map<string,int> totalValue(vector<string> words){//retorna um map com as palavras que aparecem e a quantidade de vezes que cada uma aparece
+		map<string,int> totalValue(vector<string> words){
+		//retorna um map com as palavras que aparecem e a quantidade de vezes que cada uma aparece
 			map<string,int> s;
 			int i;
+			
+			sort(words.begin(), words.end());
+			words.erase(unique(words.begin(),words.end()),words.end());
+		
 			for (i = 0;i<words.size();i++){
 				s[words[i]]++;
 			}
@@ -100,6 +97,5 @@ class dataStructuration{
 		map<string,int> wordCount;
 		
 };
-
 
 
