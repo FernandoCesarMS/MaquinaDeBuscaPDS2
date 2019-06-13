@@ -25,17 +25,15 @@ int main(int argc,const char* argv[]){
 	Ranking rank;
 	vector<string> frase;
 	
-	for(int i = 0;i < tamanho;i++){
+	for(int i = 0;i < tamanho;i++)
 		fileName[i] = argv[i];
-		g[i].fillMap(fileName[i],f[i].getData(fileName[i]));
-	}
 	
 	for(int i = 0;i < tamanho;i++)
 		itf[i] = g[i].totalValue(f[i].getData(fileName[i]));
 		
 	idf = rank.calculateIDF(itf,tamanho); //preenche o map com os valores de IDF
-	W = rank.calculateW(idf,itf); //Preenche o Map W, explicar melhor oq é o map w
+	W = rank.calculateW(idf,itf,tamanho); //Preenche o Map W, explicar melhor oq é o map w
 	frase = rank.readInput(); //Le a consulta
-	cos = rank.calculateCosine(frase,idf,W); // calcula os valores do Ranking Cosseno de cada documento
-	rank.printRank(cos); // Ordena os valores do cosseno do maior pro menor e printa na tela o ranking de documentos mais proximos da consulta
+	cos = rank.calculateCosine(frase,idf,W,tamanho); // calcula os valores do Ranking Cosseno de cada documento
+	rank.printRank(cos,tamanho); // Ordena os valores do cosseno do maior pro menor e printa na tela o ranking de documentos mais proximos da consulta
 }
