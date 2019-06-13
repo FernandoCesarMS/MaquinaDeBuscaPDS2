@@ -61,7 +61,18 @@ class dataStructuration{
 				}
 			} 
 	}
+		void invertedDocumentFrequency(vector<string> words,map<string,int> &inFileCount){
+			
+			int i;
+						
+			sort(words.begin(), words.end());
+			words.erase(unique(words.begin(),words.end()),words.end());
+			
+			for(i = 0; i <  words.size(); i++){
 				
+				inFileCount[words[i]]++;	
+			}				
+		}
 		map<string,int> totalValue(vector<string> words){
 		//retorna um map com as palavras que aparecem e a quantidade de vezes que cada uma aparece
 			map<string,int> s;
