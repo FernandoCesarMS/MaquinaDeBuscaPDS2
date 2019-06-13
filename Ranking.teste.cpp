@@ -4,12 +4,24 @@
 #include <algorithm>
 #include <math.h>
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "Ranking.cpp"
 
 using std::string;
 
 class Teste {
 public:
-  
+	static int tamanho(const Ranking& c) {
+    	return  c.t_;
+    }
+	static int tamanhoIDF(const Ranking& c) {
+    	return  c.tamanhoIDF_;
+    }
+	static int numPalavras(const Ranking& c) {
+    	return  c.numPalavras_;
+    }
+	static int tamW(const Ranking& c) {
+    	return  c.numW_;
+    }
 };
 
 TEST_SUITE("Ranking") {
