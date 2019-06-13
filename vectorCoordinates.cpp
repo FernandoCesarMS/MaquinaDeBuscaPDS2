@@ -39,20 +39,6 @@ class dataStructuration{
 			
 			sort(words.begin(), words.end());
 			words.erase(unique(words.begin(),words.end()),words.end());
-		
-		/*	
-			for(i = 0; i < words.size(); i++){
-				
-				cout << "Existem: " << wordCount[words[i]] << " instancias da palavra \"" << words[i] << "\" no arquivo " << dataStructure[wordCount] << "\n";
-					
-			}
-			
-			for(i = 0; i < words.size(); i++){
-				
-				cout << "Existem: " << inFileCount[words[i]] << " instancias da palavra \"" << words[i] << "\" no arquivos \n";
-					
-			}
-		*/
 		}
 		
 		/* A função term frequency percorre o vetor de palavras de cada arquivo, o qual a função recebe como parametro,
