@@ -20,13 +20,13 @@ TEST_CASE("calcularIDF(int ,int )"){
 	CHECK(rank.calcularIDF(1,2) == -log(2));
 	CHECK(rank.calcularIDF(15,0) == 0);
 }
-TEST_CASE("readInput()"){ //Provavelmente não tem com testar
+TEST_CASE("readInput()"){ 
 	Ranking rank;
 	vector <string> Teste;
 	Teste = rank.readInput();
 	CHECK(Teste.numPalavras == 0);
 }
-TEST_CASE("calculateIDF(map<int,map<string,int>> ,int )"){//Tem como testar dificil de fazer
+TEST_CASE("calculateIDF(map<int,map<string,int>> ,int )"){
 	Ranking rank;
 	map<int,map<string,int>> itf;
 	int tamanho;
@@ -39,8 +39,17 @@ TEST_CASE("calculateIDF(map<int,map<string,int>> ,int )"){//Tem como testar difi
 	idf = calculateIDF(itf,tamanho);
 	CHECK(rank.tamanhoIDF == 0);
 }
-TEST_CASE("calculateW(map<string,double> ,map<int,map<string,int>> ,int )"){ //tem como testar dificil de fazer
+TEST_CASE("calculateW(map<string,double> ,map<int,map<string,int>> ,int )"){
 	Ranking rank;
+	map<string,double> idf;
+	map<int,map<string,int>> itf;
+	int tamanho=0;
+	map<int,map<string,double>> teste = calculateW(idf,itf,tamanho);
+	CHECK(teste.tamW == 0);
+	tamanho = 1;
+	CHECK(teste.tamW == 1);
+	tamanho = -1;
+	CHECK(teste.tamW == 0);
 }
 TEST_CASE("calculateCosine(vector<string> ,map<string,double> ,map<int,map<string,double>> ,int )"){
 	Ranking rank;
