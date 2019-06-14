@@ -91,5 +91,6 @@ class dataManagement{
 		
 		vector<string> sentences;
 		vector<string> words;
+		friend class testeFile;
 		ifstream ifile;
 };
